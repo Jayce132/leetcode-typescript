@@ -1,18 +1,13 @@
 function removeDuplicates(nums: number[]): number {
-  const frequencyMap: { [key: number]: number } = {};
+  // We can skip checking the first number
+  let current = nums[0];
+  let writer = 1;
 
-  for (let i = 0; i < nums.length; i++) {
-    frequencyMap[nums[i]] = frequencyMap[nums[i]] !== undefined ? frequencyMap[nums[i]] + 1 : 1;
-  }
-
-  let writer = 0;
-
-  for (let reader = 0; reader < nums.length; reader++) {
-    if (frequencyMap[nums[reader]] >= 1) {
+  for (let reader = 1; reader < nums.length; reader++) {
+    if (current !== nums[reader]) {
       nums[writer] = nums[reader];
       writer += 1;
-      frequencyMap[nums[reader]] -= 1;
-      reader += frequencyMap[nums[reader]];
+      current = nums[reader];
     }
   }
 
